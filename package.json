@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "webpack-dev-server --hot --progress --colors",
     "build": "webpack --progress --colors",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
