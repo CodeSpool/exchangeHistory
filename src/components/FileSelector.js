@@ -5,7 +5,7 @@ class FileSelector extends React.Component {
     super(props)
     this.state = {
       fileList: this.readLocalStorageList() || [],
-      selectedHash: ''
+      selectedFile: {}
     }
     this.handleLoadFileClick = this.handleLoadFileClick.bind(this)
     this.LoadFile = this.LoadFile.bind(this)
@@ -17,33 +17,51 @@ class FileSelector extends React.Component {
     this.fileInputElement.click()
   }
 
+  handleSelectFileClick (file) {
+    this.setState({selectedFile: file})
+  }
+
+  handleRemoveFileClick (index, e) {
+    e.stopPropagation()
+    let updatedList = this.state.fileList
+    updatedList.splice(index, 1)
+    this.setState({fileList: updatedList})
+    this.writeToLocalStorage()
+  }
+
   LoadFile (e) {
     e.preventDefault()
 
     let reader = new FileReader()
     let file = e.target.files[0]
     let list = this.state.fileList
-    let isFileInDb = false
+    let isFileInDb = -1
 
     reader.onloadend = () => {
       let fileHash = this.getHashCode(reader.result)
       let data = JSON.parse(reader.result)
 
-      list.forEach(element => {
+      list.forEach((element, index) => {
         if (element.hash === fileHash) {
-          isFileInDb = true
+          isFileInDb = index
         }
       })
 
-      if (!isFileInDb) {
+      if (isFileInDb < 0) {
         list.push({
           hash: fileHash,
           data: data,
-          time: Date.now()
+          timestamp: Date.now()
         })
-        this.setState({fileList: list})
-        this.writeToLocalStorage()
+      } else {
+        list[isFileInDb] = {
+          hash: fileHash,
+          data: data,
+          timestamp: Date.now()
+        }
       }
+      this.setState({fileList: list})
+      this.writeToLocalStorage()
     }
     reader.readAsText(file)
   }
@@ -76,18 +94,20 @@ class FileSelector extends React.Component {
 
 
   render () {
-    const fileList = this.state.fileList.map(item => {
+    const fileList = this.state.fileList.map((item, index) => {
+      let date = new Date(item.timestamp)
       return <li
         key={item.hash}
-        className='ph3 pv2 bb b--light-silver hover-bg-lightest-blue pointer'
-        onClick={this.handleSelectFileClick}>
-          {item.time}
+        className={'ph3 pv2 bb b--light-silver hover-bg-lightest-blue pointer' + (this.state.selectedFile.hash === item.hash ? ' b' : '')}
+        onClick={this.handleSelectFileClick.bind(this, item)}>
+        <span>{date.toLocaleDateString()}, {date.toLocaleTimeString()}, <strong>{item.data.length}</strong> transactions</span>
+        <span className='close grow-large' onClick={this.handleRemoveFileClick.bind(this, index)}>X</span>
       </li>
     })
 
     return (
       <div>
-        <ul className='list pl0 ml0 center mw5 ba b--light-silver br3 pointer'>
+        <ul className='list pl0 ml0 center mw7 ba b--light-silver br3 pointer'>
          {fileList}
           <li
             className='ph3 pv2 hover-bg-lightest-blue'

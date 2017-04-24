@@ -10,7 +10,7 @@ class ResultTable extends React.Component {
   render () {
     return (
       <div className='ph3 mt4'>
-        <p>A table</p>
+        <p>A table goes here</p>
       </div>
     )
   }

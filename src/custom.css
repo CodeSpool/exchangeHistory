@@ -1,3 +1,9 @@
 .hidden {
   visibility: hidden;
 }
+
+.close {
+  float: right;
+  font-size: larger;
+  font-weight: bold;
+}
