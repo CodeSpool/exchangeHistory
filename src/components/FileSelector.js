@@ -24,6 +24,9 @@ class FileSelector extends React.Component {
   handleRemoveFileClick (index, e) {
     e.stopPropagation()
     let updatedList = this.state.fileList
+    if (updatedList[index].hash === this.state.selectedFile.hash) {
+      this.setState({selectedFile: {}})
+    }
     updatedList.splice(index, 1)
     this.setState({fileList: updatedList})
     this.writeToLocalStorage()
