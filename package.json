@@ -1,7 +1,6 @@
 {
   "name": "kanban-zadatak",
   "version": "0.0.0",
-  "main": "server.js",
   "scripts": {
     "dev": "webpack-dev-server --hot --progress --colors",
     "build": "webpack --progress --colors",
@@ -25,5 +24,7 @@
     "axios": "^0.15.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
-  }
+  },
+  "main": "server.js",
+  "author": "CodeSpool"
 }
