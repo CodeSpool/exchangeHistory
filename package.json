@@ -18,12 +18,14 @@
     "webpack-dev-server": "^2.3.0"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "express": "~4.15.2",
-    "axios": "^0.15.3",
+    "moment": "^2.18.1",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "superagent": "^3.5.2"
   },
   "main": "server.js",
   "author": "CodeSpool"
