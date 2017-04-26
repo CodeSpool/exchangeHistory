@@ -45,7 +45,9 @@ function getBestFiveDays(rates, reqData, target) {
         let factor = entry.currency === target ? 1 : day.rates[entry.currency]
         let convertedAmmount = entry.ammount * factor
         dailyResult.totalAfterConversion += convertedAmmount
-        dailyResult.conversions.push({currency: entry.currency, convertedAmmount: convertedAmmount})
+        if (entry.currency !== target) {
+          dailyResult.conversions.push({currency: entry.currency, convertedAmmount: convertedAmmount.toFixed(2)})
+        }
       })
       result.push(dailyResult)
   })

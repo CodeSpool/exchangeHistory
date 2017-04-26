@@ -19,6 +19,7 @@ class FileSelector extends React.Component {
 
   handleSelectFileClick (file) {
     this.setState({selectedFile: file})
+    this.props.changeHandler(file.data)
   }
 
   handleRemoveFileClick (index, e) {

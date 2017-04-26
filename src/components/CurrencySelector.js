@@ -10,6 +10,7 @@ class CurrencySelector extends React.Component {
 
   setCurrent (currency) {
     this.setState({currentCy: currency})
+    this.props.changeHandler(currency)
   }
 
   render () {
