@@ -28,5 +28,8 @@
     "superagent": "^3.5.2"
   },
   "main": "server.js",
-  "author": "CodeSpool"
+  "author": "CodeSpool",
+  "engines": {
+    "node": "7.7.3"
+  }
 }
